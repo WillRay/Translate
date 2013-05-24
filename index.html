@@ -1,0 +1,18 @@
+<!doctype html>
+<head>
+	<title>Translator</title>
+	<script src="script.js"></script>
+</head>
+<body>
+	<div class="target"></div>
+	<button class="start" type="button">Start</button>
+	<script>
+		var startBtn = document.querySelector('.start');
+		var target = document.querySelector('.target');
+		var translator = new Translator(target, startBtn);
+		
+		startBtn.addEventListener('click', function(e) {
+			translator.startListening();
+		});
+	</script>
+</body>
