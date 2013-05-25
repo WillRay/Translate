@@ -1,18 +1,50 @@
 <!doctype html>
 <head>
 	<title>Translator</title>
+	<link rel="stylesheet" href="design.css">
 	<script src="script.js"></script>
 </head>
 <body>
-	<div class="target"></div>
-	<button class="start" type="button">Start</button>
+	<section class="translator-choices">
+		<h2>Pick a language to translate to:</h2>
+		<ul>
+			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="es" checked>Spanish</label></li>
+			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="it">Italian</label></li>
+			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="fi">Finnish</label></li>
+			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="tr">Turkish</label></li>
+		</ul>
+	</section>
+	<section class="translator-container">
+		<button class="translator-start" type="button">Start</button>
+		<div class="translator-input"></div>
+		<div class="translator-output"></div>
+	</section>
 	<script>
-		var startBtn = document.querySelector('.start');
-		var target = document.querySelector('.target');
-		var translator = new Translator(target, startBtn);
-		
-		startBtn.addEventListener('click', function(e) {
-			translator.startListening();
-		});
+		(function() {
+			'use strict';
+
+			var startBtn = document.querySelector('.translator-start');
+			var output = document.querySelector('.translator-output');
+			var input = document.querySelector('.translator-input');
+			var lang = document.querySelector('.translator-lang-choice:checked').value;
+			var oscillator = -1;
+
+			var translator = new Translator({
+				'inputTarget': input,
+				'outputTarget': output,
+				'startButton': startBtn,
+				'language': lang
+			});
+			
+			startBtn.addEventListener('click', function(e) {
+				lang = document.querySelector('.translator-lang-choice:checked').value;
+				translator.setTranslateLang(lang);
+				translator.toggleListening();
+
+				startBtn.innerText = (oscillator === 1) ? 'Start' : 'Stop';
+				oscillator *= -1;
+			});
+		})();
+
 	</script>
 </body>
