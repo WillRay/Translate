@@ -1,41 +1,100 @@
 /* Normalize */
-html,body,div,span,applet,object,iframe,h1,h2,h3,p,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,center,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,section,summary,time,mark,audio,video {
-    margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline
-}
-
-article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section {
-    display: block
-}
-
-body {
-    line-height: 1
-}
-
-ol,ul {
-    list-style: none
-}
-
-
-
+html,body,div,span,applet,object,iframe,h1,h2,h3,p,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,center,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,section,summary,time,mark,audio,video{margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section {display:block}body{line-height:1}ol,ul {list-style:none}
 
 * {
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.screen-reader {
+    position: absolute;
+    text-indent: -99999px;
+}
+.main-container {
+    padding: 3em;
+    margin: 2em auto;
+    max-width: 80em;
+    width: 100%;
 }
 
-.translator-choices {
-    
-    width: 100%
+.main-heading {
+    font-family: 'Myriad Pro', 'Verdana', sans-serif;
+    font-size: 3em;
+    padding-bottom: .5em;
 }
 
-.translator-lang-choice {
+.sub-heading {
+    font-family: 'Verdana', sans-serif;
+}
+
+.translator-options-container {
     -webkit-appearance: none;
+    border: 0;
+    border-bottom: 1px solid blue;
+    cursor: pointer;
+    font-family: 'Verdana', sans-serif;
+    font-size: 1em;
+    margin: 0;
 }
 
-.translator-lang-choice:checked {
-    font-weight: bold
+.translator-options-container:focus {
+    outline: 0;
+}
+.translator-output-container {
+    margin-top: 1em;
 }
 
-.translator-container {
+.translator-start-button {
+    -webkit-appearance: none;
+    background: url(microphone.png) no-repeat;
+    border: 0;
+    cursor: pointer;
+    float: right;
+    height: 40px;
+    margin: 0 0 1em 1em;
+    padding: 1em;
+    width: 20px;
+}
 
+.translator-start-button:checked {
+    opacity: .8;
+    animation: 2s translatorActive infinite;
+    -webkit-animation: 2s translatorActive infinite;
+}
+
+.translator-output {
+    box-shadow: 0 0 5px #454545;
+    font-family: 'Verdana', sans-serif;
+    line-height: 1.4em;
+    min-height: 20em;
+    padding: 1em .5em;
+    width: 100%;
+}
+
+.translator-interim-results {
+    color: #454545;
+}
+
+.right-footer {
+    float: right;
+    font-family: 'Verdana', sans-serif;
+    padding-top: 1em;
+}
+
+@keyframes translatorActive {
+    0%, 100% {
+        opacity: .8;
+    }
+    50% {
+        opacity: .5;
+    }
+}
+
+@-webkit-keyframes translatorActive {
+    0%, 100% {
+        opacity: .8;
+    }
+    50% {
+        opacity: .5;
+    }
+        
 }

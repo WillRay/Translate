@@ -2,49 +2,61 @@
 <head>
 	<title>Translator</title>
 	<link rel="stylesheet" href="design.css">
-	<script src="script.js"></script>
+	<script src="translator.js"></script>
 </head>
 <body>
-	<section class="translator-choices">
-		<h2>Pick a language to translate to:</h2>
-		<ul>
-			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="es" checked>Spanish</label></li>
-			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="it">Italian</label></li>
-			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="fi">Finnish</label></li>
-			<li><label><input class="translator-lang-choice" type="radio" name="languages" value="tr">Turkish</label></li>
-		</ul>
-	</section>
-	<section class="translator-container">
-		<button class="translator-start" type="button">Start</button>
-		<div class="translator-input"></div>
-		<div class="translator-output"></div>
-	</section>
+	<main class="main-container"role="main">
+		<section>
+			<h1 class="main-heading">Web Speech Translator</h1>
+			<span class="sub-heading">I want to translate from English to </span>
+			<select class="translator-options-container">
+				<option value="es">Spanish</option>
+				<option value="it">Italian</option>
+				<option value="fi">Finnish</option>
+				<option value="tr">Turkish</option>
+				<option value="ar">Arabic</option>
+			</select>
+		</section>
+		<section class="translator-output-container">
+			<div class="translator-output">
+				<label for="microphone" class="screen-reader">Click to toggle the microphone</label>
+				<input name="microphone" class="translator-start-button" type="checkbox"></input>
+				<span class="translator-final-results"></span>
+				<span class="translator-interim-results"></span>
+			</div>
+		</section>
+		<footer class="right-footer">
+			<a href="http://www.will-ray.com" alt="Will Ray's Site">will-ray.com</a>
+		</footer>
+	</main>
 	<script>
 		(function() {
 			'use strict';
 
-			var startBtn = document.querySelector('.translator-start');
-			var output = document.querySelector('.translator-output');
-			var input = document.querySelector('.translator-input');
-			var lang = document.querySelector('.translator-lang-choice:checked').value;
-			var oscillator = -1;
+			var interimTarget = document.querySelector('.translator-interim-results');
+			var outputTarget = document.querySelector('.translator-final-results');
+			var startBtn = document.querySelector('.translator-start-button');
+			var translatorOptions = document.querySelector('.translator-options-container');
+			var lang = translatorOptions.selectedOptions[0].value;
 
-			var translator = new Translator({
-				'inputTarget': input,
-				'outputTarget': output,
+			var myTranslator = new Translator({
+				'interimTarget': interimTarget,
+				'outputTarget': outputTarget,
 				'startButton': startBtn,
 				'language': lang
 			});
 			
 			startBtn.addEventListener('click', function(e) {
-				lang = document.querySelector('.translator-lang-choice:checked').value;
-				translator.setTranslateLang(lang);
-				translator.toggleListening();
+				lang = translatorOptions.selectedOptions[0].value;
+				myTranslator.setTranslateLanguage(lang);
+				myTranslator.toggleListening();
 
-				startBtn.innerText = (oscillator === 1) ? 'Start' : 'Stop';
-				oscillator *= -1;
+
+				translatorOptions.disabled = myTranslator.isListening;
+				if (myTranslator.isListening) {
+					outputTarget.innerText = '';
+				}
 			});
 		})();
-
 	</script>
 </body>
